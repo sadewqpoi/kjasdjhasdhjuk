@@ -1,0 +1,27 @@
+{
+  "name": "alallat-family-tree",
+  "version": "1.0.0",
+  "private": true,
+  "description": "منصة مشجرة عائلة العلاط التفاعلية مع نظام الحسابات والاشتراكات",
+  "main": "src/server.js",
+  "scripts": {
+    "start": "node src/server.js",
+    "dev": "node --watch src/server.js",
+    "import": "node scripts/import-excel.js",
+    "create-admin": "node scripts/create-admin.js",
+    "test": "node scripts/smoke-test.js",
+    "backup": "node scripts/backup.js",
+    "restore": "node scripts/restore.js"
+  },
+  "engines": {
+    "node": "24.x"
+  },
+  "dependencies": {
+    "@whiskeysockets/baileys": "7.0.0-rc14",
+    "bcryptjs": "2.4.3",
+    "express": "4.22.3",
+    "multer": "2.5.0",
+    "pino": "10.4.0",
+    "qrcode": "1.5.4"
+  }
+}
