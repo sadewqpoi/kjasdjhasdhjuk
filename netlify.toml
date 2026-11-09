@@ -1,0 +1,36 @@
+# Netlify: يستضيف الواجهة (مجلد public) والدومين وشهادة HTTPS،
+# ويحوّل كل طلبات /api إلى الخادم على Railway، فيبدو للأعضاء موقعًا واحدًا على دومينك.
+#
+# لا تعدّل هذا الملف: رابط الخادم يُضبط من لوحة Netlify في متغير البيئة API_URL
+# (Site configuration ← Environment variables)، وأمر البناء يكتب منه ملف التحويل تلقائيًا.
+
+[build]
+  publish = "public"
+  command = "node scripts/netlify-build.js"
+
+[build.environment]
+  NODE_VERSION = "24"
+
+# ترويسات الأمان للصفحات الثابتة (نفس سياسة الخادم)
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Content-Type-Options = "nosniff"
+    X-Frame-Options = "DENY"
+    Referrer-Policy = "same-origin"
+    Strict-Transport-Security = "max-age=31536000"
+    Content-Security-Policy = "default-src 'self'; img-src 'self' data: blob:; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; script-src 'self'; frame-ancestors 'none'; form-action 'self' https://*.moyasar.com"
+
+# الصفحة الرئيسية وملفات الواجهة تُراجع دائمًا حتى تصل التحديثات فورًا
+[[headers]]
+  for = "/index.html"
+  [headers.values]
+    Cache-Control = "no-cache"
+[[headers]]
+  for = "/js/*"
+  [headers.values]
+    Cache-Control = "no-cache"
+[[headers]]
+  for = "/css/*"
+  [headers.values]
+    Cache-Control = "no-cache"
